@@ -1,5 +1,6 @@
 package se.lexicon.elmira.jpaassignmentrecipedatabase.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,6 +16,36 @@ public class RecipeCategory {
     public RecipeCategory(String category, List<Recipe> recipes) {
         this.name = category;
         this.recipes = recipes;
+    }
+
+    public boolean addRecipe(Recipe recipe){
+        boolean added = false;
+        if (recipes == null)
+            recipes = new ArrayList<>();
+
+        if (recipe == null)
+            throw new IllegalArgumentException();
+
+        if (!recipes.contains(recipe)){
+            added = recipes.add(recipe);
+            recipe.getRecipeCategories().add(this);
+        }
+        return added;
+    }
+
+    public boolean removeRecipe(Recipe recipe){
+        boolean removed = false;
+        if (recipes == null)
+            recipes = new ArrayList<>();
+
+        if (recipe == null)
+            throw new IllegalArgumentException();
+
+        if (recipes.contains(recipe)){
+            removed = recipes.add(recipe);
+            recipe.getRecipeCategories().remove(this);
+        }
+        return removed;
     }
 
     public int getId() {
